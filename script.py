@@ -18,6 +18,6 @@ for result in api.item_search('chair', SearchIndex='HomeGarden', Keywords='wood'
         if hasattr(result.ItemAttributes.ItemDimensions, 'Length'):
             length = result.ItemAttributes.ItemDimensions.Length;
         if hasattr(result.ItemAttributes.ItemDimensions, 'Weight'):
-            weight = result.ItemAttributes.ItemDimensions.Weight;
-
+            weight = result.ItemAttributes.ItemDimensions.Weight; 
     print "(W, H, L) - weight  => (%d, %d, %d) - %d", width, height, length, weight
+
