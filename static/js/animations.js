@@ -6,14 +6,12 @@ var $currentInput = $urlIn.focus();
 var $zip_s = $('#zip_s');
 var $zip_e = $('#zip_e');
 
-
-
-
 var $listCounter = 1;
 
 var $item_dictionary = {};
 
 $(function(){
+    $("#inputVals").hide();
     $("#getZips").hide();
     $("#errorMes").hide();
 });
@@ -33,7 +31,6 @@ function goToZips()
     {
         $("#getZips").show();
         $("#getUrl").hide();
-
     }
     else
     {
@@ -62,7 +59,6 @@ $window.keydown(function (event) {
             $hiddenUrls.val($hiddenUrls.val()+" "+url);
             addUrl(url);
             //alert($hiddenUrls.val());
-            $urlIn.val('');
         }
     }
 }); 
@@ -76,7 +72,7 @@ function submitUrl(urls, zip_s, zip_e)
     $.ajax({
         url: "/submit_req",
         type: "POST",
-        data: "urls=\""+urls+"\"&from_zip="+zip_s+"$to_zip="+zip_e,
+        data: "urls="+urls+"&from_zip="+zip_s+"&to_zip="+zip_e,
         success: function( response ) {
             alert(response.sh_price);
         }
@@ -167,7 +163,7 @@ function updateName(response, url)
                             $listCounter + '" class="label label-danger" onClick="removeMe(' + 
                             $listCounter + ',\'' + url + '\')">X</span>&nbsp;&nbsp;&nbsp;</div> ');
     var $urlBodyDiv = $('<span class="urlBody" id="' + url +'">'+response.title.substr(0,getStrLen())+'...</span>').append($urlBodyButton);
-    var $urlPic = $('<div class="urlItem"><img width=100px src="'+response.image+'"/>').append($urlBodyDiv);
+    var $urlPic = $('<div class="urlItem"><img height=100px width=100px src="'+response.image+'"/>').append($urlBodyDiv);
 
     var $urlDiv = $('<li name="'+url+'" class="url">')
         .append($urlPic)
