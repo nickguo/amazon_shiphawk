@@ -5,7 +5,7 @@ def ShiphawkPrice(params):
 
     url = 'https://stage.shiphawk.com/api/v1/rates/full?api_key=b230a747c492a66dd7d47b5f9b9dcf26'
    # url = "http://54.68.34.231:8000"
-    itemId = getItem(params['type'])
+    itemId = getItem(params['title'])
     fromZip = params['fromZip']
     toZip = params['toZip']
     width = params['width']
@@ -22,7 +22,7 @@ def ShiphawkPrice(params):
     
     itemData=[{'width':float(width), 'length':float(length),'height':float(height), 'weight': float(weight), 'value': value, 'id': itemId, 'packed' : packed}] 
 
-    data = {'from_zip' : str(fromZip), 'rate_filter' : 'consumer', 'to_zip' : str(toZip), 'items' : itemData}
+    data = {'from_zip' : str(fromZip), 'to_zip' : str(toZip), 'items' : itemData}
     headers = {'Content-Type' : 'application/json'} 
     req = requests.post(url, data=json.dumps(data),headers=headers)
     print json.dumps(data)
@@ -33,6 +33,8 @@ def ShiphawkPrice(params):
     
     print json2
     print json2[0]['price']
+
+    return json2[0]['price']
 
 
 def getItem(myStr):
