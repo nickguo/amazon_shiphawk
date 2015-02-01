@@ -101,7 +101,7 @@ function addUrl(url)
 function getStrLen()
 {
     var $winWidth = $(window).width();
-    return ($winWidth*.60 - 160)/16;
+    return ($winWidth*.60 - 160)/20;
 }
 
 function updateName(response, url)
