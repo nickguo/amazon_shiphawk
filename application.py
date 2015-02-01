@@ -42,7 +42,8 @@ class ReqHandler(tornado.web.RequestHandler):
             data = amazon.AmazonPrice(str(url))
             data['from_zip'] = from_zip
             data['to_zip'] = to_zip
-            am_price += data['price']
+            if 'price' in data:
+                am_price += data['price']
             item_data_list.append(data)
 
         print item_data_list
