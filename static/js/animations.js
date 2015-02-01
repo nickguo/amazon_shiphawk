@@ -15,15 +15,17 @@ var $item_dictionary = {};
 
 $(function(){
     $(window).bind('resize', function() {
-        //resizeMe();
+//        resizeMe();
     }).trigger('resize');   
 
 });
 
-//function resizeMe(url)
+//function resizeMe()
 //{
 //    if ( $("#amazonContainer").is(":visible") ){
-//        $(".urlBody").text($item_dictionary[$(".urlBody").attr('id')]['title'].substr(0, getStrLen);
+//        $(".urlBody").text(
+//            $item_dictionary[$(this).attr('id')]['title'].substr(0, getStrLen())
+//        );
 //    }
 //}
 
@@ -121,7 +123,6 @@ function updateName(response, url)
                             $listCounter + '" class="label label-danger" onClick="removeMe(' + 
                             $listCounter + ',\'' + url + '\')">X</span>&nbsp;&nbsp;&nbsp;</div></div> ');
     var $urlBodyDiv = $('<span class="urlBody" id="' + url +'">'+response.title.substr(0,40)+'...</span>').append($urlBodyButton);
-    $listCounter + ')">X</span>&nbsp;&nbsp;&nbsp;</div></div> ');
     var $urlBodyDiv = $('<span class="urlBody">'+response.title.substr(0,getStrLen())+'...</span>').append($urlBodyButton);
     var $urlPic = $('<div class="urlItem"><img width=100px src="'+response.image+'"/>').append($urlBodyDiv);
 
