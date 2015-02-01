@@ -1,5 +1,5 @@
 html, body{
-    background-color:#2563AB;
+    background-color:white;
     font-family:"Oswald", Sans-Serif;
 }
 
@@ -10,7 +10,7 @@ html, body{
 }
 
 .jumbotron{
-    background-color:white;
+    background-color:#c1c1c1;
 }
 
 #incButton{

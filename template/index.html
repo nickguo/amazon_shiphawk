@@ -7,6 +7,20 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
+            <script type="text/javascript">
+      WebFontConfig = {
+        google: { families: [ 'Oswald:400,300,700:latin' ] }
+      };
+      (function() {
+        var wf = document.createElement('script');
+        wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+          '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+        wf.type = 'text/javascript';
+        wf.async = 'true';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(wf, s);
+      })(); </script>
+
         <!-- Bootstrap core CSS -->
         <link href="/static/dist/css/bootstrap.min.css" rel="stylesheet">
         <!-- Bootstrap theme -->
@@ -20,27 +34,27 @@
         <div id="title" class="jumbotron">
             <center>
                 <h1>
-                    <font color="#093A49">ship it</font> <font color="gray">or</font> <font color="orange">buy it</font> <font color="gray">?</font>
+                    <font color="#093A49">ship it</font> <font color="white">or</font> <font color="orange">buy it</font> <font color="white">?</font>
                 </h1>
                 <div id="getUrl">
                     <input class = "inputMessage" id="urlIn" placeholder="Enter Amazon URL" type="text"/>
                     <button class="btn btn-primary" id="nextButton" onClick="goToZips()">
-                        Next 
+                        NEXT 
                     </button>
                     <br/>
                     <div>
-                        <font style="" size="5" id="normMes">Press Enter to Add URLs</font>
-                        <font id="errorMes" style="color:red;"size="5">please add some URLs by using the enter key</font>
+                        <font style="" size="5" id="normMes">Press Enter to Add Items</font>
+                        <font id="errorMes" style="color:red;"size="5">Please Add Some Items Using the Enter Key</font>
                     </div>
                 </div>
                 <div id="getZips">
                     <button class="btn btn-primary" id="nextButton" onClick="returnURL()">
-                        Back 
+                        BACK 
                     </button>
                     <input id="zip_s" placeholder="Start Zip Code" type="text"/>
                     <input id="zip_e" placeholder="End Zip Code" type="text"/>
                     <button class="btn btn-primary" id="nextButton" onClick="submitForm()">
-                        Submit 
+                        SUBMIT 
                     </button>
                 </div>
             </center>
@@ -52,7 +66,7 @@
         </div>
         <div id="calculating">
             <center>
-                <h1><p style="color:white;" id="loading">Calculating<span>.</span><span>.</span><span>.</span></p></h1>
+                <h1><p style="color:black;" id="loading">Calculating<span>.</span><span>.</span><span>.</span></p></h1>
             </center>
         </div>
         <div id ="result">
@@ -69,14 +83,14 @@
             </div>
             <br/>
             <div id="shipDiv"> 
-            <button id="shipButton" onClick="window.location.href='http://www.amazon.com'" 
+            <button id="shipButton" onClick="window.open('http://www.shiphawk.com', '_blank')" 
                 class="btn btn-lg btn-default">
                 Go To ShipHawk
             </button>
         </div>
             <br/>
             <div id="buyDiv">
-            <button id="buyButton" onClick="window.location.href='http://www.amazon.com'" class="btn btn-lg btn-success">
+            <button id="buyButton" onClick="window.open('http://www.amazon.com', '_blank')" class="btn btn-lg btn-success">
                 Go To Amazon
             </button>
         </div>

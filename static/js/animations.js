@@ -36,9 +36,9 @@ function toggleResult(sh, am)
         $('body').css("background-color","#093A49");
         $('html').css("background-color","#093A49");
         $("#shipButton").attr("class", "btn btn-lg btn-success")
-            .append("<br/>Cost: $"+sh);
+            .append("<br/>Cost: $"+sh.toFixed(2));
         $("#buyButton").attr("class", "btn btn-lg btn-default").
-            append("<br/>Cost: $"+am);
+            append("<br/>Cost: $"+am.toFixed(2));
         $("#buyDiv").insertAfter("#shipDiv").prepend('<br/>');
     }
     else
@@ -46,9 +46,9 @@ function toggleResult(sh, am)
         $('body').css("background-color","orange");
         $('html').css("background-color","orange");
         $("#buyButton").attr("class", "btn btn-lg btn-success")
-            .append("<br/>Cost: $"+am);
+            .append("<br/>Cost: $"+am.toFixed(2));
         $("#shipButton").attr("class", "btn btn-lg btn-default")
-            .append("<br/>Cost: $"+sh);
+            .append("<br/>Cost: $"+sh.toFixed(2));
         $("#shipDiv").insertAfter("#buyDiv").prepend('<br/>');
     }
 }
@@ -202,8 +202,8 @@ function updateName(response, url)
 {
     $item_dictionary[url].counter = 1;
     var $urlBodyButton = $('<div class="qtControll"><font color=black>Qt: </font><span style="color:black" id="numItem'+$listCounter+'">'+
-                            $item_dictionary[url].counter+'&nbsp;</span><button style="font-size:20px; width:50px" class="btn btn-default" onClick="addItem('+$listCounter+',\'' + url +
-                            '\')">+</span>&nbsp;<button style="font-size:20px; width:50px" class="btn btn-default" onClick="subItem('+$listCounter+',\''+url+'\')">-</button></div>'
+                            $item_dictionary[url].counter+'&nbsp;</span><button style="font-size:32px; padding:0px;width:50px" class="btn btn-default" onClick="addItem('+$listCounter+',\'' + url +
+                            '\')">+</span>&nbsp;<button style="font-size:32px; width:50px; padding:0px;" class="btn btn-default" onClick="subItem('+$listCounter+',\''+url+'\')">-</button></div>'
                             //<span style="float:right;"id="button' + 
                             //$listCounter + '" class="label label-danger" onClick="removeMe(' + 
                             //$listCounter + ',\'' + url + '\')">X</span>
