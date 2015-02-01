@@ -84,22 +84,23 @@ function addUrl(url)
         type: "POST",
         data: "url="+url+"&fromZip="+0+"&toZip="+0,
         success: function( response ) {
-            updateName(response.title, url);
+            updateName(response, url);
         }
     });
 
 }
 
-function updateName(title, url)
+function updateName(response, url)
 {
-    var $urlBodyDiv = $('<span class="urlBody">')
-        .text(title);
+    var $urlBodyButton = $('<div style="float:right" class="xbutton"><button id="button' + 
+                            $listCounter + '" class="label label-danger" onClick="removeMe(' + 
+                            $listCounter + ')">X</button>&nbsp;&nbsp;&nbsp;</div></div> ');
+    var $urlBodyDiv = $('<span class="urlBody">'+response.title.substr(0,30)+'...</span>').append($urlBodyButton);
+    var $urlPic = $('<div class="urlItem"><img width=100px src="'+response.image+'"/>').append($urlBodyDiv);
 
-    var $urlBodyButton = $('<div><button id="button'+$listCounter+'" class="label label-danger" onClick="removeMe('+$listCounter+')">X</button>&nbsp;&nbsp;&nbsp;</div> ').
-            append($urlBodyDiv).append("<hr>");
-
-    var $urlDiv = $('<li class="url"/>')
-        .append($urlBodyButton)
+    var $urlDiv = $('<li class="url">')
+        .append($urlPic)
+        .append("</li>")
         .attr('id', "element"+$listCounter);
 
     $listCounter++;
