@@ -2,18 +2,25 @@ html, body{
     background-color:gray;
 }
 
+.urls{
+    list-style-type:none;
+    padding:0;
+}
+
 #urlIn{
     width:31%;
     font-size:24px;
 }
 
-#zipStart, #zipEnd{
+#zip_s, #zip_e{
     width:15%;
     font-size:24px;
 }
 
 #amazonContainer{
     width:31%;
+    max-height:300px;
+    overflow:scroll;
     border:solid;
 }
 
@@ -24,7 +31,6 @@ html, body{
 
 #nextButton{
     display:inline-block;
-    width:10%;
     line-height:50px;
     font-size:24px;
 }

@@ -6,6 +6,8 @@ var $currentInput = $urlIn.focus();
 var $zip_s = $('#zip_s');
 var $zip_e = $('#zip_e');
 
+var $listCounter = 1;
+
 $(function(){
     $("#amazonContainer").hide();
     $("#listUrl").hide();
@@ -25,7 +27,7 @@ $window.keydown(function (event) {
             url = cleanInput($urlIn.val().trim());
             $hiddenUrls.val($hiddenUrls.val()+" "+url);
             addUrl(url);
-            alert($hiddenUrls.val());
+            //alert($hiddenUrls.val());
             $urlIn.val('');
         }
     }
@@ -38,7 +40,7 @@ function cleanInput (input) {
 function submitUrl(url, zip_s, zip_e)
 {
     $.ajax({
-        type: "GET",
+        type: "POST",
         dataType: "json",
         url: "http://54.68.34.231:8000/get_info",
         contentType: "json",
@@ -66,10 +68,13 @@ function addUrl(url)
     var $urlBodyDiv = $('<span class="urlBody">')
         .text(url);
 
+    var $urlBodyButton = $('<div><button id="button'+$listCounter+'" class="label label-danger" onClick="removeMe()">X</button>&nbsp;&nbsp;&nbsp;</div> ').append($urlBodyDiv);
+
     var $urlDiv = $('<li class="url"/>')
-        .append($urlBodyDiv);
+        .append($urlBodyButton)
+        .attr('id', "element"+$listCounter);
 
     // Setup default options
-    $urls.append($urlDiv);
+    $urls.prepend($urlDiv);
     $urls[0].scrollTop = $urls[0].scrollHeight;
 }
