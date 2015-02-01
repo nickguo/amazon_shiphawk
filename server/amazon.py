@@ -7,10 +7,15 @@ def AmazonPrice(url):
     # parse the api 
     parsed_url = urlparse(url)
 
+    # try to get the item ID from url
+    item_id = parsed_url.path[1:]
     path_list = (parsed_url.path).split('/')
-    item_id = "a"
-    if len(path_list) >= 3:
-        item_id = path_list[3]
+
+    print item_id
+
+    for i in range(0, len(path_list)-1):
+        if path_list[i] == 'product' or path_list[i] == 'dp':
+            item_id = path_list[i+1]
 
     try:
         result = api.item_lookup(item_id,
@@ -26,11 +31,10 @@ def AmazonPrice(url):
     attr['height'] = -1;
     attr['length'] = -1;
     attr['weight'] = -1;
-    attr['price'] = -1;
+    attr['price'] = "00";
     attr['type'] = "";
     attr['image'] = "";
 
-#attr['title'] = str(attributes.Title.text)
     attr['title'] = attributes.Title.text
 
     if hasattr(attributes, 'ItemDimensions'):
@@ -70,15 +74,20 @@ def AmazonPrice(url):
     # use package dimensions / weight instead
 
     if attr['width'] == -1:
-        attr['width'] = attributes.PackageDimensions.Width / 100.0;
+        if hasattr(attributes.PackageDimensions, 'Width'):
+            attr['width'] = attributes.PackageDimensions.Width / 100.0;
     if attr['height'] == -1:
-        attr['height'] = attributes.PackageDimensions.Height / 100.0;
+        if hasattr(attributes.PackageDimensions, 'Height'):
+            attr['height'] = attributes.PackageDimensions.Height / 100.0;
     if attr['length'] == -1:
-        attr['length'] = attributes.PackageDimensions.Length / 100.0;
+        if hasattr(attributes.PackageDimensions, 'Length'):
+            attr['length'] = attributes.PackageDimensions.Length / 100.0;
     if attr['weight'] == -1:
-        attr['weight'] = attributes.PackageDimensions.Weight / 100.0;
+        if hasattr(attributes.PackageDimensions, 'Weight'):
+            attr['weight'] = attributes.PackageDimensions.Weight / 100.0;
 
     attr['image'] = str(attr['image'])
+    attr['price'] = float(attr['price'][1:])
 
     return attr
 
