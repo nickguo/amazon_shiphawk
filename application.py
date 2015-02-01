@@ -4,6 +4,7 @@ import sys
 import tornado.web
 import json
 import ast
+import urllib
 
 from server import amazon
 from server import shiphawk
@@ -28,24 +29,28 @@ class ReqHandler(tornado.web.RequestHandler):
         from_zip = self.get_argument('from_zip','')
         to_zip = self.get_argument('to_zip','')
 
+
+        print urls
+        url_list = (urls).split(',')
+        print type(url_list)
+        print url_list
+
         item_data_list = []
+        am_price = 0.0
 
-        print json.loads(self.request.body)
+        for url in url_list:
+            data = amazon.AmazonPrice(str(url))
+            data['from_zip'] = from_zip
+            data['to_zip'] = to_zip
+            am_price += data['price']
+            item_data_list.append(data)
 
-        #for url in urls:
-            #data = amazon.AmazonPrice(url['url'])
-            #data['from_zip'] = from_zip
-            #data['to_zip'] = to_zip
-            #item_data_list.append(data)
+        print item_data_list
 
+        print 'calling shiphawk'
+        sh_price = shiphawk.ShiphawkPrice(item_data_list) 
 
-        #print item_data_list
-
-        #sh_price = shiphawk.ShiphawkPrice(item_data_list) 
-
-
-        # self.write({'sh_price': sh_price, 'items': item_data_list})
-        self.write('test')
+        self.write({'sh_price': sh_price, 'am_price': am_price, 'items': item_data_list})
 
 class HomeHandler(tornado.web.RequestHandler):
     def get(self):

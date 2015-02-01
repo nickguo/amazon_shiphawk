@@ -84,18 +84,18 @@ function submitForm()
     var $zipEVal = $zip_e.val().trim();
     var $urlList = Object.keys($item_dictionary);
 
-    var $urlString = "[";
+    var $urlString = "\'";
 
     for ( var url in $item_dictionary) {
         var $numItem = $item_dictionary[url].counter;
         while (parseInt($numItem) > 0)
         {
-            $urlString = $urlString  + "'" + url + "',";
+            $urlString = $urlString  + "\"" + url.split('&')[0] + "\",";
             $numItem --;
         }
     }
 
-    $urlString = $urlString.substr(0, $urlString.length - 1) + "]";
+    $urlString = $urlString.substr(0, $urlString.length - 1) + "\'";
 
     alert($urlString);
 

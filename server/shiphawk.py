@@ -7,8 +7,13 @@ def ShiphawkPrice(params):
 
     packed = False 
     itemData = []
+
+    toZip = -1
+    fromZip = -1
+
     for x in params:
-        itemId = getItem(x['type'])
+        itemId = getItem(x['title'])
+        print 'ITEMID: ', itemId
         fromZip = x['from_zip']
         toZip = x['to_zip']
         width = x['width']
@@ -18,12 +23,18 @@ def ShiphawkPrice(params):
         value = x['price']
         itemData.append({'width':float(width), 'length':float(length),'height':float(height), 'weight': float(weight), 'value': value, 'id': itemId, 'packed' : packed}) 
 
-    data = {'from_zip' : str(fromZip), 'to_zip' : str(toZip), 'items' : itemData}
+    data = {'rate-filter': 'consumer', 'from_zip' : str(fromZip),
+            'to_zip' : str(toZip), 'items' : itemData}
+    data = json.dumps(data)
+    print data
     headers = {'Content-Type' : 'application/json'} 
-    req = requests.post(url, data=json.dumps(data),headers=headers)
+    req = requests.post(url, data=data,headers=headers)
     
     req = req.content
     json2 = json.loads(req)
+
+    if 'error' in json2:
+        return -1
 
     return json2[0]['price']
 
