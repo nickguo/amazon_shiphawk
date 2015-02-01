@@ -11,6 +11,7 @@ var $listCounter = 1;
 var $item_dictionary = {};
 
 $(function(){
+    $("#calculating").hide();
     $("#result").hide();
     $("#buyResult").hide();
     $("#shipResult").hide();
@@ -19,39 +20,35 @@ $(function(){
     $("#shipResult").hide();
 });
 
-//function resizeMe()
-//{
-//    if ( $listCounter > 1 ){
-//        $(".urlBody").text(
-//            $item_dictionary[$(this).attr('id')].title.substr(0, getStrLen())
-//        );
-//    }
-//}
-//
-//
+
+
 function toggleResult(sh, am)
 {
-    $("#inputVals").hide();
-    $("#result").show();
-    if ( sh > am )
-        $("#shipResult").show();
+    $("#calculating").hide();
+    $("#result").delay(10000).show();
+    if ( am > sh )
+        $("#shipResult").delay(10000).show();
     else
-        $("#buyResult").show();
+        $("#buyResult").delay(10000).show();
 
     if ( $("#shipResult").is(":visible") )
     {
         $('body').css("background-color","#093A49");
         $('html').css("background-color","#093A49");
-        $("#shipButton").attr("class", "btn btn-lg btn-success").text($("#shipButton").text() + "\nCost: "+sh);
-        $("#buyButton").attr("class", "btn btn-lg btn-default").text($("#buyButton").text() + "\nCost: "+am);
+        $("#shipButton").attr("class", "btn btn-lg btn-success")
+            .append("<br/>Cost: $"+sh);
+        $("#buyButton").attr("class", "btn btn-lg btn-default").
+            append("<br/>Cost: $"+am);
         $("#buyDiv").insertAfter("#shipDiv").prepend('<br/>');
     }
     else
     {
         $('body').css("background-color","orange");
         $('html').css("background-color","orange");
-        $("#buyButton").attr("class", "btn btn-lg btn-success");
-        $("#shipButton").attr("class", "btn btn-lg btn-default");
+        $("#buyButton").attr("class", "btn btn-lg btn-success")
+            .append("<br/>Cost: $"+am);
+        $("#shipButton").attr("class", "btn btn-lg btn-default")
+            .append("<br/>Cost: $"+sh);
         $("#shipDiv").insertAfter("#buyDiv").prepend('<br/>');
     }
 }
@@ -61,6 +58,7 @@ function goToZips()
     if ( Object.keys($item_dictionary).length > 0 ) 
     {
         $("#getZips").show();
+        $zip_s.focus();
         $("#getUrl").hide();
     }
     else
@@ -82,7 +80,7 @@ $window.keydown(function (event) {
     }
     // When the client hits ENTER on their keyboard
     if (event.which === 13) {
-        if ($urlIn.val().trim() != "") {
+        if ($urlIn.val().trim() != "" && $("#getZips").is(":hidden") ) {
             if ( $("#amazonContainer").is(":hidden") ) {
                 $("#amazonContainer").show();
             }
@@ -90,6 +88,10 @@ $window.keydown(function (event) {
             $hiddenUrls.val($hiddenUrls.val()+" "+url);
             addUrl(url);
             $urlIn.val("");
+        }
+        else if ($("#getZips").is(":visible") )
+        {
+            submitForm();
         }
     }
 }); 
@@ -113,6 +115,11 @@ function submitForm()
 {
     var $zipSVal = $zip_s.val().trim();
     var $zipEVal = $zip_e.val().trim();
+    if ( $zipSVal.length != 5 || $zipEVal.length != 5 )
+    {
+        alert("Zipcodes are not length of 5");
+        return;
+    }
     var $urlList = Object.keys($item_dictionary);
 
     var $urlString = "\'";
@@ -130,6 +137,7 @@ function submitForm()
 
     if ( $urlString != "" && $zipSVal != "" && $zipEVal != "" )
     {
+        $("#inputVals").animate({'marginTop':"-=500px"}, function(){$("#inputVals").hide();$("#calculating").show()});;
         submitUrl($urlString, $zipSVal, $zipEVal);
     }
 }
@@ -150,9 +158,16 @@ function addUrl(url)
             type: "POST",
             data: "url="+url+"&fromZip="+0+"&toZip="+0,
             success: function( response ) {
-                $item_dictionary[url] = response;
-                $item_dictionary[url].url = url;
-                updateName(response, url);
+                if ( response.error == "item error" )
+                {
+                    alert("Not a valid Amazon URL.");
+                }
+                else
+                {
+                    $item_dictionary[url] = response;
+                    $item_dictionary[url].url = url;
+                    updateName(response, url);
+                }
             }
         });
     }
@@ -164,19 +179,19 @@ function addUrl(url)
 function getStrLen()
 {
     var $winWidth = $(window).width();
-    return ($winWidth*.60 - 160-120)/20;
+    return ($winWidth*.60 - 100)/20;
 }
 
 function addItem(val, url)
 {
     $item_dictionary[url].counter = $item_dictionary[url].counter+1 ;
-    $('#numItem'+val).text( $item_dictionary[url].counter );
+    $('#numItem'+val).text( $item_dictionary[url].counter +"   ");
 }
 
 function subItem(val, url)
 {
     $item_dictionary[url].counter = $item_dictionary[url].counter - 1;
-    $('#numItem'+val).text( $item_dictionary[url].counter );
+    $('#numItem'+val).text( $item_dictionary[url].counter +"   ");
     if ( $item_dictionary[url].counter <= 0 )
     {
         removeMe(val, url);
@@ -186,9 +201,9 @@ function subItem(val, url)
 function updateName(response, url)
 {
     $item_dictionary[url].counter = 1;
-    var $urlBodyButton = $('<span class="qtControll"><font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Qt:</font><span id="numItem'+$listCounter+'">'+
-                            $item_dictionary[url].counter+'</span><span style="width:100px" class="label label-primary" onClick="addItem('+$listCounter+',\'' + url +
-                            '\')">+</span>&nbsp;<span style="width:100px" class="label label-primary" onClick="subItem('+$listCounter+',\''+url+'\')">-</span></span>'
+    var $urlBodyButton = $('<div class="qtControll"><font color=black>Qt: </font><span style="color:black" id="numItem'+$listCounter+'">'+
+                            $item_dictionary[url].counter+'&nbsp;</span><button style="font-size:20px; width:50px" class="btn btn-default" onClick="addItem('+$listCounter+',\'' + url +
+                            '\')">+</span>&nbsp;<button style="font-size:20px; width:50px" class="btn btn-default" onClick="subItem('+$listCounter+',\''+url+'\')">-</button></div>'
                             //<span style="float:right;"id="button' + 
                             //$listCounter + '" class="label label-danger" onClick="removeMe(' + 
                             //$listCounter + ',\'' + url + '\')">X</span>

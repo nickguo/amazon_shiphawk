@@ -20,13 +20,13 @@
         <div id="title" class="jumbotron">
             <center>
                 <h1>
-            <font color="blue">ship it</font> or <font color="orange">buy it</font>
+                    <font color="#093A49">ship it</font> <font color="gray">or</font> <font color="orange">buy it</font> <font color="gray">?</font>
                 </h1>
                 <div id="getUrl">
-                    <input id="urlIn" placeholder="Enter Amazon URL" type="text"/>
-                    <span class="label label-primary" id="nextButton" onClick="goToZips()">
+                    <input class = "inputMessage" id="urlIn" placeholder="Enter Amazon URL" type="text"/>
+                    <button class="btn btn-primary" id="nextButton" onClick="goToZips()">
                         Next 
-                    </span>
+                    </button>
                     <br/>
                     <div>
                         <font style="" size="5" id="normMes">Press Enter to Add URLs</font>
@@ -34,14 +34,14 @@
                     </div>
                 </div>
                 <div id="getZips">
-                    <span class="label label-primary" id="nextButton" onClick="returnURL()">
+                    <button class="btn btn-primary" id="nextButton" onClick="returnURL()">
                         Back 
-                    </span>
+                    </button>
                     <input id="zip_s" placeholder="Start Zip Code" type="text"/>
                     <input id="zip_e" placeholder="End Zip Code" type="text"/>
-                    <span class="label label-primary" id="submitButton" onClick="submitForm()">
+                    <button class="btn btn-primary" id="nextButton" onClick="submitForm()">
                         Submit 
-                    </span>
+                    </button>
                 </div>
             </center>
         </div>
@@ -50,17 +50,22 @@
                     </ul>
                 </div>
         </div>
+        <div id="calculating">
+            <center>
+                <h1><p style="color:white;" id="loading">Calculating<span>.</span><span>.</span><span>.</span></p></h1>
+            </center>
+        </div>
         <div id ="result">
             <center>
                 <br/>
                 <br/>
             <div id="buyResult" >
                 <img width=300px src="/static/img/amazon.png" />
-                <h1>Ship It</h1>
+                <h1><b>Buy It</b></h1>
             </div>
             <div id="shipResult" >
                 <img width=300px src="/static/img/shiphawk.jpg" />
-                <h1>Buy It</h1>
+                <h1 style="color:white;"><b>Ship It</b></h1>
             </div>
             <br/>
             <div id="shipDiv"> 
