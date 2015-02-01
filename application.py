@@ -7,7 +7,7 @@ import json
 from server import amazon
 from server import shiphawk
 
-class URLRequest(tornado.web.RequestHandler):
+class InfoHandler(tornado.web.RequestHandler):
     def post(self):
         print str(self)
         url = self.get_argument('url', '')
@@ -31,6 +31,10 @@ class URLRequest(tornado.web.RequestHandler):
 
         self.write(data)
 
+class ReqHandler(tornado.web.RequestHandler):
+    def post(self):
+        self.write("hello")
+
 class HomeHandler(tornado.web.RequestHandler):
     def get(self):
         self.render("index.html")
@@ -39,7 +43,8 @@ class Application(tornado.web.Application):
     def __init__(self):
         handlers = [
             (r"/", HomeHandler),
-            (r"/get_info", URLRequest)
+            (r"/get_info", InfoHandler),
+            (r"/submit_req", ReqHandler)
         ]
 
         settings = {
