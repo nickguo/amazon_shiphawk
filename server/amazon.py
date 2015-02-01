@@ -13,7 +13,9 @@ def AmazonPrice(url):
         item_id = path_list[3]
 
     try:
-        result = api.item_lookup(item_id, ResponseGroup='ItemAttributes,OfferListings')
+        result = api.item_lookup(item_id,
+                                 ResponseGroup='ItemAttributes,OfferListings',
+                                 MerchantID='Amazon')
     except:
         return {'error':"item error"}
 
@@ -43,11 +45,28 @@ def AmazonPrice(url):
     if hasattr(result.Items.Item, 'Offers'):
         if hasattr(result.Items.Item.Offers, 'Offer'):
             if hasattr(result.Items.Item.Offers.Offer, 'OfferListing'):
-                attr['price'] = str(result.Items.Item.Offers.Offer.
-                                    OfferListing.Price.FormattedPrice)
+                if hasattr(result.Items.Item.Offers.Offer.OfferListing, 'SalePrice'):
+                    attr['price'] = str(result.Items.Item.Offers.Offer.
+                                        OfferListing.SalePrice.FormattedPrice)
+                else:
+                    attr['price'] = str(result.Items.Item.Offers.Offer.
+                                        OfferListing.Price.FormattedPrice)
 
     if hasattr(attributes, 'ProductGroup'):
         attr['type'] = str(attributes.ProductGroup)
+
+
+    # check if some of the dimensions (W,H,L) and weight weren't found
+    # use package dimensions / weight instead
+
+    if attr['width'] == -1:
+        attr['width'] = attributes.PackageDimensions.Width / 100.0;
+    if attr['height'] == -1:
+        attr['height'] = attributes.PackageDimensions.Height / 100.0;
+    if attr['length'] == -1:
+        attr['length'] = attributes.PackageDimensions.Length / 100.0;
+    if attr['weight'] == -1:
+        attr['weight'] = attributes.PackageDimensions.Weight / 100.0;
 
     return attr
 
