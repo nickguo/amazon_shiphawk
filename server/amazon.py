@@ -30,7 +30,8 @@ def AmazonPrice(url):
     attr['type'] = "";
     attr['image'] = "";
 
-    attr['title'] = str(attributes.Title)
+#attr['title'] = str(attributes.Title.text)
+    attr['title'] = attributes.Title.text
 
     if hasattr(attributes, 'ItemDimensions'):
         if hasattr(attributes.ItemDimensions, 'Width'):
@@ -47,14 +48,14 @@ def AmazonPrice(url):
         if hasattr(result.Items.Item.Offers, 'Offer'):
             if hasattr(result.Items.Item.Offers.Offer, 'OfferListing'):
                 if hasattr(result.Items.Item.Offers.Offer.OfferListing, 'SalePrice'):
-                    attr['price'] = str(result.Items.Item.Offers.Offer.
-                                        OfferListing.SalePrice.FormattedPrice)
+                    attr['price'] = result.Items.Item.Offers.Offer. \
+                                        OfferListing.SalePrice.FormattedPrice.text
                 else:
-                    attr['price'] = str(result.Items.Item.Offers.Offer.
-                                        OfferListing.Price.FormattedPrice)
+                    attr['price'] = result.Items.Item.Offers.Offer. \
+                                        OfferListing.Price.FormattedPrice.text
 
     if hasattr(attributes, 'ProductGroup'):
-        attr['type'] = str(attributes.ProductGroup)
+        attr['type'] = attributes.ProductGroup.text
 
     if hasattr(result.Items.Item.ImageSets, 'ImageSet'):
         if hasattr(result.Items.Item.ImageSets.ImageSet, 'MediumImage'):
