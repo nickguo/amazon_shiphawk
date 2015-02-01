@@ -8,6 +8,19 @@ html, body{
     font-size:24px;
 }
 
+#buttonDiv{
+    width:75%;
+}
+
+#buyButton, #shipButton, #restartButton {
+    line-height:30px;
+    width:25%;
+}
+
+#empSpace {
+    width:25%;
+}
+
 #title{
     overflow:hidden;
     width:100%;

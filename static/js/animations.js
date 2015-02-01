@@ -12,8 +12,11 @@ var $item_dictionary = {};
 
 $(function(){
     $("#result").hide();
+    $("#buyResult").hide();
+    $("#shipResult").hide();
     $("#getZips").hide();
     $("#errorMes").hide();
+    $("#shipResult").hide();
 });
 
 //function resizeMe()
@@ -25,6 +28,34 @@ $(function(){
 //    }
 //}
 //
+//
+function toggleResult(sh, am)
+{
+    $("#inputVals").hide();
+    $("#result").show();
+    if ( sh > am )
+        $("#shipResult").show();
+    else
+        $("#buyResult").show();
+
+    if ( $("#shipResult").is(":visible") )
+    {
+        $('body').css("background-color","#093A49");
+        $('html').css("background-color","#093A49");
+        $("#shipButton").attr("class", "btn btn-lg btn-success");
+        $("#buyButton").attr("class", "btn btn-lg btn-default");
+        $("#buyDiv").insertAfter("#shipDiv").prepend('<br/>');
+    }
+    else
+    {
+        $('body').css("background-color","orange");
+        $('html').css("background-color","orange");
+        $("#buyButton").attr("class", "btn btn-lg btn-success");
+        $("#shipButton").attr("class", "btn btn-lg btn-default");
+        $("#shipDiv").insertAfter("#buyDiv").prepend('<br/>');
+    }
+}
+
 function goToZips()
 {
     if ( Object.keys($item_dictionary).length > 0 ) 
@@ -74,7 +105,7 @@ function submitUrl(urls, zip_s, zip_e)
         type: "POST",
         data: "urls="+urls+"&from_zip="+zip_s+"&to_zip="+zip_e,
         success: function( response ) {
-            alert(response.sh_price);
+            toggleResult(response.sh_price, response.am_price);
         }
     });
 }

@@ -51,14 +51,34 @@
                 </div>
         </div>
         <div id ="result">
-            <div id="buyResult">
-                <img src="/static/img/amazon.jpg" />
+            <center>
+                <br/>
+                <br/>
+            <div id="buyResult" >
+                <img width=300px src="/static/img/amazon.png" />
                 <h1>Ship It</h1>
             </div>
-            <div id="shipResult">
-                <img src="/static/img/shiphawk.jpg" />
+            <div id="shipResult" >
+                <img width=300px src="/static/img/shiphawk.jpg" />
                 <h1>Buy It</h1>
             </div>
+            <br/>
+            <div id="shipDiv"> 
+            <button id="shipButton" onClick="ship()" class="btn btn-lg btn-default">
+                Go To ShipHawk
+            </button>
+        </div>
+            <br/>
+            <div id="buyDiv">
+            <button id="buyButton" onClick="buy()" class="btn btn-lg btn-success">
+                Go To Amazon
+            </button>
+        </div>
+            <br/>
+            <button class = "btn btn-lg btn-default" id="restartButton" onClick="window.location.reload(true)">
+                Back
+            </button>
+        </center>
         </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
