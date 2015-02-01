@@ -56,6 +56,14 @@ function submitForm()
     var $zipSVal = $zip_s.val().trim();
     var $zipEVal = $zip_e.val().trim();
 
+    var $urlList = "";
+
+    $("li").each(function( index ) {
+        $urlList = $urlList + $(this).text().substr(4) + " ";
+    });
+
+    alert($urlList);
+
     if ( $urlVal != "" && $zipSVal != "" && $zipEVal != "" )
     {
         alert("hello");
