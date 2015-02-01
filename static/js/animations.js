@@ -40,11 +40,9 @@ function cleanInput (input) {
 function submitUrl(url, zip_s, zip_e)
 {
     $.ajax({
+        url: "/get_info",
         type: "POST",
-        dataType: "json",
-        url: "http://54.68.34.231:8000/get_info",
-        contentType: "json",
-        data: {"url": url, "fromZip" : zip_s, "toZip" : zip_e},
+        data: "url="+url+"&fromZip="+zip_s+"&toZip="+zip_e,
         success: function( response ) {
             alert(response);
         }
@@ -66,7 +64,7 @@ function submitForm()
 
     if ( $urlVal != "" && $zipSVal != "" && $zipEVal != "" )
     {
-        alert("hello");
+        alert($urlVal);
         submitUrl($urlVal, $zipSVal, $zipEVal);
     }
 }

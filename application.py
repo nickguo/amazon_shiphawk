@@ -9,10 +9,15 @@ from server import shiphawk
 
 class URLRequest(tornado.web.RequestHandler):
     def post(self):
+        print str(self)
         url = self.get_argument('url', '')
-        from_zip = self.get_argument('url', '')
 
-        print url
+        if not url:
+            print 'wtf: ', url
+            self.write('wtf')
+            return
+
+        print '\n\n', url, '\n'
         data = amazon.AmazonPrice(url)
 
         data['fromZip'] = 92130
@@ -39,10 +44,13 @@ class Application(tornado.web.Application):
             (r"/get_info", URLRequest)
         ]
 
-        settings = dict(
-            template_path = os.path.join(os.path.dirname(__file__), "public"),
-            static_path = os.path.join(os.path.dirname(__file__), "public")
-        )
+        settings = {
+            "debug": True,
+            "static_path": os.path.join(os.path.dirname(__file__), "static"),
+            "template_path": os.path.join(os.path.dirname(__file__), "template"),
+        }
+        print settings['static_path']
 
         # start tornado
         tornado.web.Application.__init__(self, handlers, **settings)
+
