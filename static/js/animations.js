@@ -14,10 +14,8 @@ var $listCounter = 1;
 var $item_dictionary = {};
 
 $(function(){
-    $(window).bind('resize', function() {
-//        resizeMe();
-    }).trigger('resize');   
-
+    $("#getZips").hide();
+    $("#errorMes").hide();
 });
 
 //function resizeMe()
@@ -28,6 +26,27 @@ $(function(){
 //        );
 //    }
 //}
+//
+function goToZips()
+{
+    if ( Object.keys($item_dictionary).length > 0 ) 
+    {
+        $("#getZips").show();
+        $("#getUrl").hide();
+
+    }
+    else
+    {
+        $("#normMes").hide();//.delay(1000).show();
+        $("#errorMes").show();//.delay(1000).hide();
+    }
+}
+
+function returnURL()
+{
+    $("#getZips").hide();
+    $("#getUrl").show();
+}
 
 $window.keydown(function (event) {
     // Auto-focus the current input when a key is typed
@@ -52,35 +71,28 @@ function cleanInput (input) {
     return $('<div/>').text(input).text();
 }
 
-function submitUrl(url, zip_s, zip_e)
+function submitUrl(urls, zip_s, zip_e)
 {
     $.ajax({
-        url: "/get_info",
+        url: "/submit_req",
         type: "POST",
-        data: "url="+url+"&fromZip="+zip_s+"&toZip="+zip_e,
+        data: "urls="+urls+"&from_zip="+zip_s+"$to_zip="+zip_e,
         success: function( response ) {
-            alert(response.fromZip);
+            alert(response.sh_price);
         }
     });
 }
 function submitForm()
 {
-    var $urlVal = $urlIn.val().trim();
     var $zipSVal = $zip_s.val().trim();
     var $zipEVal = $zip_e.val().trim();
-
-    var $urlList = "";
-
-    $("li").each(function( index ) {
-        $urlList = $urlList + $(this).text().substr(4) + " ";
-    });
+    var $urlList = Object.keys($item_dictionary);
 
     alert($urlList);
 
-    if ( $urlVal != "" && $zipSVal != "" && $zipEVal != "" )
+    if ( $urlList != "" && $zipSVal != "" && $zipEVal != "" )
     {
-        alert($urlVal);
-        submitUrl($urlVal, $zipSVal, $zipEVal);
+        submitUrl($urlList, $zipSVal, $zipEVal);
     }
 }
 
@@ -107,30 +119,48 @@ function addUrl(url)
         });
     }
     else {
-        alert("This item has already been added!");
+        alert("This item has already been added! \nPlease change the quanity.");
     }
 }
 
 function getStrLen()
 {
     var $winWidth = $(window).width();
-    return ($winWidth*.60 - 160)/20;
+    return ($winWidth*.60 - 160-120)/20;
+}
+
+function addItem(val, url)
+{
+    $item_dictionary[url].counter = $item_dictionary[url].counter+1 ;
+    $('#numItem'+val).text( $item_dictionary[url].counter );
+}
+
+function subItem(val, url)
+{
+    $item_dictionary[url].counter = $item_dictionary[url].counter - 1;
+    $('#numItem'+val).text( $item_dictionary[url].counter );
+    if ( $item_dictionary[url].counter <= 0 )
+    {
+        removeMe(val, url);
+    }
 }
 
 function updateName(response, url)
 {
-    var $urlBodyButton = $('<div style="float:right" class="xbutton"><span id="button' + 
+    $item_dictionary[url].counter = 1;
+    var $urlBodyButton = $('<font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Qt:</font><span id="numItem'+$listCounter+'">'+
+                            $item_dictionary[url].counter+'</span><span class="label label-primary" onClick="addItem('+$listCounter+',\'' + url +
+                            '\')">+</span><span class="label label-primary" onClick="subItem('+$listCounter+',\''+url+'\')">-</span><span style="float:right;"id="button' + 
                             $listCounter + '" class="label label-danger" onClick="removeMe(' + 
-                            $listCounter + ',\'' + url + '\')">X</span>&nbsp;&nbsp;&nbsp;</div></div> ');
+                            $listCounter + ',\'' + url + '\')">X</span>&nbsp;&nbsp;&nbsp;</div> ');
     var $urlBodyDiv = $('<span class="urlBody" id="' + url +'">'+response.title.substr(0,getStrLen())+'...</span>').append($urlBodyButton);
     var $urlPic = $('<div class="urlItem"><img width=100px src="'+response.image+'"/>').append($urlBodyDiv);
 
-    var $urlDiv = $('<li class="url">')
+    var $urlDiv = $('<li name="'+url+'" class="url">')
         .append($urlPic)
         .append("</li>")
         .attr('id', "element"+$listCounter);
 
-    $item_dictionary[url]['counter'] = $listCounter;
 
     $listCounter++;
 

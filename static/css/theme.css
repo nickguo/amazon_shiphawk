@@ -2,6 +2,12 @@ html, body{
     background-color:gray;
 }
 
+#submitButton{
+    line-height:30px;
+    display:inline-block;
+    font-size:24px;
+}
+
 #title{
     overflow:hidden;
     width:100%;
@@ -23,7 +29,7 @@ html, body{
 }
 
 #urlIn{
-    width:31%;
+    width:60%;
     font-size:24px;
 }
 
@@ -53,6 +59,7 @@ html, body{
 #nextButton{
     display:inline-block;
     line-height:30px;
+    width:8%;
     font-size:24px;
 }
 

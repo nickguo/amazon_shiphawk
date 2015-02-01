@@ -23,13 +23,24 @@
                 </h1>
                 <div id="getUrl">
                     <input id="urlIn" placeholder="Enter Amazon URL" type="text"/>
-                    <input id="zip_s" placeholder="Start Zip Code" type="text"/>
-                    <input id="zip_e" placeholder="End Zip Code" type="text"/>
-                    <span class="label label-primary" id="nextButton" onClick="submitForm()">
-                        Submit 
+                    <span class="label label-primary" id="nextButton" onClick="goToZips()">
+                        Next 
                     </span>
                     <br/>
-                    <div><font style="float:left; margin-left:15%" size="5">Press Enter to Add more URLs </font></div>
+                    <div>
+                        <font style="" size="5" id="normMes">Press Enter to Add URLs</font>
+                        <font id="errorMes" style="color:red;"size="5">please add some URLs by using the enter key</font>
+                    </div>
+                </div>
+                <div id="getZips">
+                    <span class="label label-primary" id="nextButton" onClick="returnURL()">
+                        Back 
+                    </span>
+                    <input id="zip_s" placeholder="Start Zip Code" type="text"/>
+                    <input id="zip_e" placeholder="End Zip Code" type="text"/>
+                    <span class="label label-primary" id="submitButton" onClick="submitForm()">
+                        Submit 
+                    </span>
                 </div>
             </center>
         </div>
