@@ -33,7 +33,7 @@ class URLRequest(tornado.web.RequestHandler):
 
 class HomeHandler(tornado.web.RequestHandler):
     def get(self):
-        self.render("test.html")
+        self.render("index.html")
 
 class Application(tornado.web.Application):
     def __init__(self):

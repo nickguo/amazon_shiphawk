@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <!-- Bootstrap core CSS -->
+        <link href="/static/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Bootstrap theme -->
+        <link href="/static/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+
+        <!-- Custom styles for this template -->
+        <link href="/static/css/theme.css" rel="stylesheet">
+    </head>
+    <body>
+        <div id="title" class="jumbotron">
+            <center>
+                <h1>
+            <font color="blue">ship it</font> or <font color="orange">buy it</font>
+                </h1>
+                <div id="getUrl">
+                    <input id="urlIn" placeholder="Enter Amazon URL" type="text"/>
+                    <br/>
+                    <font size="5">Press Enter to Add more URLs </font>
+                    <br/>
+                    <div id="amazonContainer">
+                        <ul class="urls">
+                        </ul>
+                    </div>
+                    <p></p>
+                </div>
+                <div id="getLocations">
+                    <input id="zip_s" placeholder="Starting Zip Code" type="text"/>
+                    &nbsp;&nbsp;&nbsp;
+                    <input id="zip_e" placeholder="Ending Zip Code" type="text"/>
+                </div>
+                <p></p>
+                <span class="label label-primary" id="nextButton" onClick="submitForm()">
+                    Submit </span>
+        </form>
+            </center>
+        </div>
+
+        <div id ="result">
+        </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="/static/dist/js/bootstrap.min.js"></script>
+    <script src="/static/js/animations.js"></script>
+    </body>
+
+</html>
