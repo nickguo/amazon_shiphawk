@@ -27,15 +27,16 @@ def AmazonPrice(url):
     attributes = result.Items.Item.ItemAttributes
 
     attr = {}
-    attr['width'] = -1;
-    attr['height'] = -1;
-    attr['length'] = -1;
-    attr['weight'] = -1;
-    attr['price'] = "00";
-    attr['type'] = "";
-    attr['image'] = "";
+    attr['width'] = -1
+    attr['height'] = -1
+    attr['length'] = -1
+    attr['weight'] = -1
+    attr['price'] = "00"
+    attr['type'] = ""
+    attr['image'] = ""
 
     attr['title'] = attributes.Title.text
+    attr['url'] =  url
 
     if hasattr(attributes, 'ItemDimensions'):
         if hasattr(attributes.ItemDimensions, 'Width'):

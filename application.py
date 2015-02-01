@@ -29,18 +29,22 @@ class ReqHandler(tornado.web.RequestHandler):
 
         item_data_list = []
 
-        for url in urls:
-            data = amazon.AmazonPrice(url)
-            data['from_zip'] = from_zip
-            data['to_zip'] = to_zip
-            item_data_list.append(data)
+        print urls
+
+        #for url in urls:
+            #data = amazon.AmazonPrice(url['url'])
+            #data['from_zip'] = from_zip
+            #data['to_zip'] = to_zip
+            #item_data_list.append(data)
 
 
-        print item_data_list
+        #print item_data_list
 
-        sh_price = shiphawk.ShiphawkPrice(item_data_list) 
+        #sh_price = shiphawk.ShiphawkPrice(item_data_list) 
 
-        self.write({'sh_price': sh_price, 'items': item_data_list})
+
+        # self.write({'sh_price': sh_price, 'items': item_data_list})
+        self.write('test')
 
 class HomeHandler(tornado.web.RequestHandler):
     def get(self):
