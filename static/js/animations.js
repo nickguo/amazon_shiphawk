@@ -12,8 +12,6 @@ var $zip_e = $('#zip_e');
 var $listCounter = 1;
 
 $(function(){
-    $("#amazonContainer").hide();
-    $("#listUrl").hide();
 });
 
 
@@ -92,10 +90,10 @@ function addUrl(url)
 
 function updateName(response, url)
 {
-    var $urlBodyButton = $('<div style="float:right" class="xbutton"><button id="button' + 
+    var $urlBodyButton = $('<div style="float:right" class="xbutton"><span id="button' + 
                             $listCounter + '" class="label label-danger" onClick="removeMe(' + 
-                            $listCounter + ')">X</button>&nbsp;&nbsp;&nbsp;</div></div> ');
-    var $urlBodyDiv = $('<span class="urlBody">'+response.title.substr(0,30)+'...</span>').append($urlBodyButton);
+                            $listCounter + ')">X</span>&nbsp;&nbsp;&nbsp;</div></div> ');
+    var $urlBodyDiv = $('<span class="urlBody">'+response.title.substr(0,40)+'...</span>').append($urlBodyButton);
     var $urlPic = $('<div class="urlItem"><img width=100px src="'+response.image+'"/>').append($urlBodyDiv);
 
     var $urlDiv = $('<li class="url">')

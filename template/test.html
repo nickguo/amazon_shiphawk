@@ -23,26 +23,20 @@
                 </h1>
                 <div id="getUrl">
                     <input id="urlIn" placeholder="Enter Amazon URL" type="text"/>
-                    <br/>
-                    <font size="5">Press Enter to Add more URLs </font>
-                    <br/>
-                    <div id="amazonContainer">
-                        <ul class="urls">
-                        </ul>
-                    </div>
-                    <p></p>
-                </div>
-                <div id="getLocations">
                     <input id="zip_s" placeholder="Starting Zip Code" type="text"/>
-                    &nbsp;&nbsp;&nbsp;
                     <input id="zip_e" placeholder="Ending Zip Code" type="text"/>
+                    <span class="label label-primary" id="nextButton" onClick="submitForm()">
+                        Submit 
+                    </span>
+                    <br/>
+                    <div><font style="float:left; margin-left:15%" size="5">Press Enter to Add more URLs </font></div>
                 </div>
-                <p></p>
-                <span class="label label-primary" id="nextButton" onClick="submitForm()">
-                    Submit </span>
-        </form>
             </center>
         </div>
+                <div id="amazonContainer" >
+                    <ul class="urls">
+                    </ul>
+                </div>
 
         <div id ="result">
         </div>
