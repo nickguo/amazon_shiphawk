@@ -1,7 +1,7 @@
 import requests
 import json
 
-def ShiphawkPrice(params):
+def ShiphawkPrice(params, num):
 
     url = 'https://stage.shiphawk.com/api/v1/rates/full?api_key=b230a747c492a66dd7d47b5f9b9dcf26'
    # url = "http://54.68.34.231:8000"
@@ -18,9 +18,18 @@ def ShiphawkPrice(params):
     
     packed = False
 
-    
-    
-    itemData=[{'width':float(width), 'length':float(length),'height':float(height), 'weight': float(weight), 'value': value, 'id': itemId, 'packed' : packed}] 
+   packed = False 
+   itemData = []
+   for x in range(0,num-1)
+       itemId = getItem(params[x]['type'])
+       fromZip = params[x]['fromZip']
+       toZip = params[x]['toZip']
+       width = params[x]['width']
+       height = params[x]['height']
+       length = params[x]['length']
+       weight = params[x]['weight']
+       value = params[x]['price']
+       itemData.append({'width':float(width), 'length':float(length),'height':float(height), 'weight': float(weight), 'value': value, 'id': itemId, 'packed' : packed}) 
 
     data = {'from_zip' : str(fromZip), 'to_zip' : str(toZip), 'items' : itemData}
     headers = {'Content-Type' : 'application/json'} 

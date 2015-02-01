@@ -1,0 +1,41 @@
+html, body{
+    background-color:gray;
+}
+
+#urlIn{
+    width:31%;
+    font-size:24px;
+}
+
+#zipStart, #zipEnd{
+    width:15%;
+    font-size:24px;
+}
+
+#amazonContainer{
+    width:31%;
+    border:solid;
+}
+
+.url{
+    font-size:24px;
+    text-align:left;
+}
+
+#nextButton{
+    display:inline-block;
+    width:10%;
+    line-height:50px;
+    font-size:24px;
+}
+
+#add{
+    position:relative;
+    left:-50px;
+    display:inline-block;
+    font-size:24px;
+}
+
+#getUrl{
+    padding:0px;
+}
