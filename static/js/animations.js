@@ -12,8 +12,18 @@ var $zip_e = $('#zip_e');
 var $listCounter = 1;
 
 $(function(){
+    $(window).bind('resize', function() {
+        //resizeMe();
+    }).trigger('resize');   
+
 });
 
+//function resizeMe(url)
+//{
+//    if ( $("#amazonContainer").is(":visible") ){
+//        $(".urlBody").text($item_dictionary[$(".urlBody").attr('id')]['title'].substr(0, getStrLen);
+//    }
+//}
 
 $window.keydown(function (event) {
     // Auto-focus the current input when a key is typed
@@ -88,12 +98,18 @@ function addUrl(url)
 
 }
 
+function getStrLen()
+{
+    var $winWidth = $(window).width();
+    return ($winWidth*.60 - 160)/16;
+}
+
 function updateName(response, url)
 {
     var $urlBodyButton = $('<div style="float:right" class="xbutton"><span id="button' + 
                             $listCounter + '" class="label label-danger" onClick="removeMe(' + 
                             $listCounter + ')">X</span>&nbsp;&nbsp;&nbsp;</div></div> ');
-    var $urlBodyDiv = $('<span class="urlBody">'+response.title.substr(0,40)+'...</span>').append($urlBodyButton);
+    var $urlBodyDiv = $('<span class="urlBody">'+response.title.substr(0,getStrLen())+'...</span>').append($urlBodyButton);
     var $urlPic = $('<div class="urlItem"><img width=100px src="'+response.image+'"/>').append($urlBodyDiv);
 
     var $urlDiv = $('<li class="url">')
