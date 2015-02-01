@@ -63,16 +63,23 @@ function submitForm()
     }
 }
 
+function removeMe(val)
+{
+    $("#element"+val).remove();
+}
+
 function addUrl(url)
 {
     var $urlBodyDiv = $('<span class="urlBody">')
         .text(url);
 
-    var $urlBodyButton = $('<div><button id="button'+$listCounter+'" class="label label-danger" onClick="removeMe()">X</button>&nbsp;&nbsp;&nbsp;</div> ').append($urlBodyDiv);
+    var $urlBodyButton = $('<div><button id="button'+$listCounter+'" class="label label-danger" onClick="removeMe('+$listCounter+')">X</button>&nbsp;&nbsp;&nbsp;</div> ').append($urlBodyDiv);
 
     var $urlDiv = $('<li class="url"/>')
         .append($urlBodyButton)
         .attr('id', "element"+$listCounter);
+
+    $listCounter++;
 
     // Setup default options
     $urls.prepend($urlDiv);
