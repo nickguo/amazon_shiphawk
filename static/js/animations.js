@@ -22,9 +22,9 @@ $(function(){
 
 //function resizeMe()
 //{
-//    if ( $("#amazonContainer").is(":visible") ){
+//    if ( $listCounter > 1 ){
 //        $(".urlBody").text(
-//            $item_dictionary[$(this).attr('id')]['title'].substr(0, getStrLen())
+//            $item_dictionary[$(this).attr('id')].title.substr(0, getStrLen())
 //        );
 //    }
 //}
@@ -101,7 +101,7 @@ function addUrl(url)
             data: "url="+url+"&fromZip="+0+"&toZip="+0,
             success: function( response ) {
                 $item_dictionary[url] = response;
-                $item_dictionary[url]['url'] = url;
+                $item_dictionary[url].url = url;
                 updateName(response, url);
             }
         });
