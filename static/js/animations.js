@@ -11,6 +11,8 @@ var $zip_e = $('#zip_e');
 
 var $listCounter = 1;
 
+var $item_dictionary = {};
+
 $(function(){
     $(window).bind('resize', function() {
         //resizeMe();
@@ -80,22 +82,31 @@ function submitForm()
     }
 }
 
-function removeMe(val)
+function removeMe(val, url)
 {
     $("#element"+val).remove();
+    if (url in $item_dictionary) {
+        delete $item_dictionary[url];
+    }
 }
 
 function addUrl(url)
 {
-    $.ajax({
-        url: "/get_info",
-        type: "POST",
-        data: "url="+url+"&fromZip="+0+"&toZip="+0,
-        success: function( response ) {
-            updateName(response, url);
-        }
-    });
-
+    if (!(url in $item_dictionary)) {
+        $.ajax({
+            url: "/get_info",
+            type: "POST",
+            data: "url="+url+"&fromZip="+0+"&toZip="+0,
+            success: function( response ) {
+                $item_dictionary[url] = response;
+                $item_dictionary[url]['url'] = url;
+                updateName(response, url);
+            }
+        });
+    }
+    else {
+        alert("This item has already been added!");
+    }
 }
 
 function getStrLen()
@@ -108,7 +119,9 @@ function updateName(response, url)
 {
     var $urlBodyButton = $('<div style="float:right" class="xbutton"><span id="button' + 
                             $listCounter + '" class="label label-danger" onClick="removeMe(' + 
-                            $listCounter + ')">X</span>&nbsp;&nbsp;&nbsp;</div></div> ');
+                            $listCounter + ',\'' + url + '\')">X</span>&nbsp;&nbsp;&nbsp;</div></div> ');
+    var $urlBodyDiv = $('<span class="urlBody" id="' + url +'">'+response.title.substr(0,40)+'...</span>').append($urlBodyButton);
+    $listCounter + ')">X</span>&nbsp;&nbsp;&nbsp;</div></div> ');
     var $urlBodyDiv = $('<span class="urlBody">'+response.title.substr(0,getStrLen())+'...</span>').append($urlBodyButton);
     var $urlPic = $('<div class="urlItem"><img width=100px src="'+response.image+'"/>').append($urlBodyDiv);
 
@@ -116,6 +129,8 @@ function updateName(response, url)
         .append($urlPic)
         .append("</li>")
         .attr('id', "element"+$listCounter);
+
+    $item_dictionary[url]['counter'] = $listCounter;
 
     $listCounter++;
 
