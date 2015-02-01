@@ -87,6 +87,7 @@ def AmazonPrice(url):
             attr['weight'] = attributes.PackageDimensions.Weight / 100.0;
 
     attr['image'] = str(attr['image'])
+    attr['price'] = float(attr['price'][1:])
 
     return attr
 

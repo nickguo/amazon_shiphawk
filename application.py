@@ -11,29 +11,36 @@ class InfoHandler(tornado.web.RequestHandler):
     def post(self):
         print str(self)
         url = self.get_argument('url', '')
-
         data = amazon.AmazonPrice(url)
 
         if 'error' in data:
             self.write(data)
             return 
 
-        data['fromZip'] = 92130
-        data['toZip'] = 94102
-
-        data['price'] = float(data['price'][1:])
-
         print data
-
-        sh_price = shiphawk.ShiphawkPrice([data])
-
-        data['sh_price'] = sh_price
-
         self.write(data)
 
 class ReqHandler(tornado.web.RequestHandler):
     def post(self):
-        self.write("hello")
+        print str(self)
+        urls = self.get_argument('urls', '')
+        from_zip = self.get_argument('from_zip','')
+        to_zip = self.get_argument('to_zip','')
+
+        item_data_list = []
+
+        for url in urls:
+            data = amazon.AmazonPrice(url)
+            data['from_zip'] = from_zip
+            data['to_zip'] = to_zip
+            item_data_list.append(data)
+
+
+        print item_data_list
+
+        sh_price = shiphawk.ShiphawkPrice(item_data_list) 
+
+        self.write({'sh_price': sh_price, 'items': item_data_list})
 
 class HomeHandler(tornado.web.RequestHandler):
     def get(self):

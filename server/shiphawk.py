@@ -9,8 +9,8 @@ def ShiphawkPrice(params):
     itemData = []
     for x in params:
         itemId = getItem(x['type'])
-        fromZip = x['fromZip']
-        toZip = x['toZip']
+        fromZip = x['from_zip']
+        toZip = x['to_zip']
         width = x['width']
         height = x['height']
         length = x['length']
