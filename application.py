@@ -3,6 +3,7 @@ import sys
 
 import tornado.web
 import json
+import ast
 
 from server import amazon
 from server import shiphawk
@@ -29,7 +30,7 @@ class ReqHandler(tornado.web.RequestHandler):
 
         item_data_list = []
 
-        print urls
+        print json.loads(self.request.body)
 
         #for url in urls:
             #data = amazon.AmazonPrice(url['url'])

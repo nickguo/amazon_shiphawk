@@ -76,7 +76,7 @@ function submitUrl(urls, zip_s, zip_e)
     $.ajax({
         url: "/submit_req",
         type: "POST",
-        data: "urls="+urls+"&from_zip="+zip_s+"$to_zip="+zip_e,
+        data: "urls=\""+urls+"\"&from_zip="+zip_s+"$to_zip="+zip_e,
         success: function( response ) {
             alert(response.sh_price);
         }
