@@ -1,11 +1,24 @@
 html, body{
-    background-color:gray;
+    background-color:lightblue;
 }
 
 #submitButton{
     line-height:30px;
     display:inline-block;
     font-size:24px;
+}
+
+.jumbotron{
+    background-color:white;
+}
+
+#incButton{
+    width:100px;
+}
+
+.qtControll{
+    float:right;
+    vertical-align:center;
 }
 
 #buttonDiv{

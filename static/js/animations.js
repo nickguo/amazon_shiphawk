@@ -42,8 +42,8 @@ function toggleResult(sh, am)
     {
         $('body').css("background-color","#093A49");
         $('html').css("background-color","#093A49");
-        $("#shipButton").attr("class", "btn btn-lg btn-success");
-        $("#buyButton").attr("class", "btn btn-lg btn-default");
+        $("#shipButton").attr("class", "btn btn-lg btn-success").text($("#shipButton").text() + "\nCost: "+sh);
+        $("#buyButton").attr("class", "btn btn-lg btn-default").text($("#buyButton").text() + "\nCost: "+am);
         $("#buyDiv").insertAfter("#shipDiv").prepend('<br/>');
     }
     else
@@ -89,7 +89,7 @@ $window.keydown(function (event) {
             url = cleanInput($urlIn.val().trim());
             $hiddenUrls.val($hiddenUrls.val()+" "+url);
             addUrl(url);
-            //alert($hiddenUrls.val());
+            $urlIn.val("");
         }
     }
 }); 
@@ -127,8 +127,6 @@ function submitForm()
     }
 
     $urlString = $urlString.substr(0, $urlString.length - 1) + "\'";
-
-    alert($urlString);
 
     if ( $urlString != "" && $zipSVal != "" && $zipEVal != "" )
     {
@@ -188,11 +186,13 @@ function subItem(val, url)
 function updateName(response, url)
 {
     $item_dictionary[url].counter = 1;
-    var $urlBodyButton = $('<font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Qt:</font><span id="numItem'+$listCounter+'">'+
-                            $item_dictionary[url].counter+'</span><span class="label label-primary" onClick="addItem('+$listCounter+',\'' + url +
-                            '\')">+</span><span class="label label-primary" onClick="subItem('+$listCounter+',\''+url+'\')">-</span><span style="float:right;"id="button' + 
-                            $listCounter + '" class="label label-danger" onClick="removeMe(' + 
-                            $listCounter + ',\'' + url + '\')">X</span>&nbsp;&nbsp;&nbsp;</div> ');
+    var $urlBodyButton = $('<span class="qtControll"><font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Qt:</font><span id="numItem'+$listCounter+'">'+
+                            $item_dictionary[url].counter+'</span><span style="width:100px" class="label label-primary" onClick="addItem('+$listCounter+',\'' + url +
+                            '\')">+</span>&nbsp;<span style="width:100px" class="label label-primary" onClick="subItem('+$listCounter+',\''+url+'\')">-</span></span>'
+                            //<span style="float:right;"id="button' + 
+                            //$listCounter + '" class="label label-danger" onClick="removeMe(' + 
+                            //$listCounter + ',\'' + url + '\')">X</span>
+                            +'&nbsp;&nbsp;&nbsp;</div> ');
     var $urlBodyDiv = $('<span class="urlBody" id="' + url +'">'+response.title.substr(0,getStrLen())+'...</span>').append($urlBodyButton);
     var $urlPic = $('<div class="urlItem"><img height=100px width=100px src="'+response.image+'"/>').append($urlBodyDiv);
 
