@@ -14,7 +14,7 @@ def AmazonPrice(url):
 
     try:
         result = api.item_lookup(item_id,
-                                 ResponseGroup='ItemAttributes,OfferListings',
+                                 ResponseGroup='ItemAttributes,OfferListings,Images',
                                  MerchantID='Amazon')
     except:
         return {'error':"item error"}
@@ -28,6 +28,7 @@ def AmazonPrice(url):
     attr['weight'] = -1;
     attr['price'] = -1;
     attr['type'] = "";
+    attr['image'] = "";
 
     attr['title'] = str(attributes.Title)
 
@@ -55,6 +56,14 @@ def AmazonPrice(url):
     if hasattr(attributes, 'ProductGroup'):
         attr['type'] = str(attributes.ProductGroup)
 
+    if hasattr(result.Items.Item.ImageSets, 'ImageSet'):
+        if hasattr(result.Items.Item.ImageSets.ImageSet, 'MediumImage'):
+            attr['image'] = result.Items.Item.ImageSets.ImageSet.MediumImage.URL
+        elif hasattr(result.Items.Item.ImageSets.ImageSet, 'SmallImage'):
+            attr['image'] = result.Items.Item.ImageSets.ImageSet.SmallImage.URL
+        elif hasattr(result.Items.Item.ImageSets.ImageSet, 'LargeImage'):
+            attr['image'] = result.Items.Item.ImageSets.ImageSet.LargeImage.URL
+
 
     # check if some of the dimensions (W,H,L) and weight weren't found
     # use package dimensions / weight instead
@@ -67,6 +76,8 @@ def AmazonPrice(url):
         attr['length'] = attributes.PackageDimensions.Length / 100.0;
     if attr['weight'] == -1:
         attr['weight'] = attributes.PackageDimensions.Weight / 100.0;
+
+    attr['image'] = str(attr['image'])
 
     return attr
 

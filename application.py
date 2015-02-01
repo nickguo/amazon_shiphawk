@@ -12,13 +12,11 @@ class URLRequest(tornado.web.RequestHandler):
         print str(self)
         url = self.get_argument('url', '')
 
-        if not url:
-            print 'wtf: ', url
-            self.write('wtf')
-            return
-
-        print '\n\n', url, '\n'
         data = amazon.AmazonPrice(url)
+
+        if 'error' in data:
+            self.write(data)
+            return 
 
         data['fromZip'] = 92130
         data['toZip'] = 94102
