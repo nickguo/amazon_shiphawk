@@ -6,6 +6,9 @@ var $currentInput = $urlIn.focus();
 var $zip_s = $('#zip_s');
 var $zip_e = $('#zip_e');
 
+
+
+
 var $listCounter = 1;
 
 $(function(){
@@ -44,7 +47,7 @@ function submitUrl(url, zip_s, zip_e)
         type: "POST",
         data: "url="+url+"&fromZip="+zip_s+"&toZip="+zip_e,
         success: function( response ) {
-            alert(response);
+            alert(response.fromZip);
         }
     });
 }
@@ -76,13 +79,28 @@ function removeMe(val)
 
 function addUrl(url)
 {
-    var $urlBodyDiv = $('<span class="urlBody">')
-        .text(url);
+    $.ajax({
+        url: "/get_info",
+        type: "POST",
+        data: "url="+url+"&fromZip="+0+"&toZip="+0,
+        success: function( response ) {
+            updateName(response, url);
+        }
+    });
 
-    var $urlBodyButton = $('<div><button id="button'+$listCounter+'" class="label label-danger" onClick="removeMe('+$listCounter+')">X</button>&nbsp;&nbsp;&nbsp;</div> ').append($urlBodyDiv);
+}
 
-    var $urlDiv = $('<li class="url"/>')
-        .append($urlBodyButton)
+function updateName(response, url)
+{
+    var $urlBodyButton = $('<div style="float:right" class="xbutton"><button id="button' + 
+                            $listCounter + '" class="label label-danger" onClick="removeMe(' + 
+                            $listCounter + ')">X</button>&nbsp;&nbsp;&nbsp;</div></div> ');
+    var $urlBodyDiv = $('<span class="urlBody">'+response.title.substr(0,30)+'...</span>').append($urlBodyButton);
+    var $urlPic = $('<div class="urlItem"><img width=100px src="'+response.image+'"/>').append($urlBodyDiv);
+
+    var $urlDiv = $('<li class="url">')
+        .append($urlPic)
+        .append("</li>")
         .attr('id', "element"+$listCounter);
 
     $listCounter++;

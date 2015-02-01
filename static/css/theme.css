@@ -7,6 +7,14 @@ html, body{
     padding:0;
 }
 
+.urlItem{
+    display:inline;
+    vertical-align:center;
+    width:100%;
+    height:100%;
+    white-space:nowrap;
+}
+
 #urlIn{
     width:31%;
     font-size:24px;
@@ -18,16 +26,17 @@ html, body{
 }
 
 #amazonContainer{
-    width:31%;
+    width:50%;
     max-height:300px;
-    overflow-y:scroll;
+    overflow-y:hidden;
     overflow-x:hidden;
-    border:solid;
 }
 
 .url{
     font-size:24px;
     text-align:left;
+    background-color:white;
+    border:solid;
 }
 
 #nextButton{
