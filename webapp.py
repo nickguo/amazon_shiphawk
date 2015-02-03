@@ -7,7 +7,7 @@ import application
 def main():
     app = application.Application()
     http_server = tornado.httpserver.HTTPServer(app)
-    http_server.listen(8000)
+    http_server.listen(3000)
     tornado.ioloop.IOLoop.instance().start();
 
 # only start the server if this webapp file is being executed
