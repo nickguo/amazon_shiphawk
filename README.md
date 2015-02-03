@@ -17,7 +17,7 @@ Before use, move your amazon-product-api info into the home dir as an invis file
 ```
 mv amazon-product-api ~/.amazon-product-api
 ```
-The ~/.amazon-product-api should look like:
+The '~/.amazon-product-api' should look like:
 ```
 [Credentials]
 access_key = 'my_access_key'
