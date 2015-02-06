@@ -37,3 +37,10 @@ To start the server:
 ```
 python webapp.py
 ```
+
+## TODO
+The current app does not display some sort of error or retry upon shiphawk being unable to
+find the item. This can be remedied in several ways such as querying with an item type upon
+error in 'getItem' of our Shiphawk API, or prompting user to enter an item type string ->
+this latter is more involved as it will require writing another server-side call, and 
+potentially significantly more HTML/CSS/JS.
