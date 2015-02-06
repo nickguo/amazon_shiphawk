@@ -6,8 +6,8 @@ import json
 import ast
 import urllib
 
-from server import amazon
-from server import shiphawk
+from API import amazon
+from API import shiphawk
 
 class InfoHandler(tornado.web.RequestHandler):
     def post(self):
